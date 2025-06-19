@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Produto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" id="homeLink">
+                                <i class="bi bi-house"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="productsLink">
+                                <i class="bi bi-box-seam"></i> Produtos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="clientsLink">
+                                <i class="bi bi-people"></i> Clientes
+                            </a>
+                        </li>
+                        <li class="nav-item" id="employeesLink" style="display: none;">
+                            <a class="nav-link" href="#" id="employeesLink">
+                                <i class="bi bi-person-badge"></i> Funcionários
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="dropdown mt-4 px-3">
+                        <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="userDropdown"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <span id="userName">Usuário</span>
+                        </button>
+                        <ul class="dropdown-menu w-100" aria-labelledby="userDropdown">
+                            <li><span class="dropdown-item-text"><small>Cargo: <span
+                                            id="userRole">-</span></small></span></li>
+                            <li><span class="dropdown-item-text"><small>Email: <span
+                                            id="userEmail">-</span></small></span></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><button class="dropdown-item" id="logoutBtn">Sair</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Editar Produto</h1>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <form id="editProductForm">
+                            <input type="hidden" id="productId">
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="productCode" class="form-label">Código</label>
+                                    <input type="text" class="form-control" id="productCode" required minlength="3">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="productDescription" class="form-label">Descrição</label>
+                                    <input type="text" class="form-control" id="productDescription" required>
+                                </div>
+                            </div>
+
+                            <!-- Linha 2: Validade e Volume -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="productExpiry" class="form-label">Validade</label>
+                                    <input type="date" class="form-control" id="productExpiry">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="productVolume" class="form-label">Volume</label>
+                                    <input type="number" class="form-control" id="productVolume" required>
+                                </div>
+                            </div>
+
+                            <!-- Linha 3: Quantidade e Marca -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="productQuantity" class="form-label">Quantidade</label>
+                                    <input type="number" class="form-control" id="productQuantity" required value="0">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="productBrand" class="form-label">Marca</label>
+                                    <input type="text" class="form-control" id="productBrand">
+                                </div>
+                            </div>
+
+                            <!-- Linha 4: Preço de Custo e Preço de Venda -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="productCostPrice" class="form-label">Preço de Custo</label>
+                                    <input type="number" step="0.01" class="form-control" id="productCostPrice"
+                                        required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="productSalePrice" class="form-label">Preço de Venda</label>
+                                    <input type="number" step="0.01" class="form-control" id="productSalePrice"
+                                        required>
+                                </div>
+                            </div>
+
+                            <!-- Linha 5: Departamento e Prateleira -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="productDepartment" class="form-label">Departamento</label>
+                                    <select class="form-select" id="productDepartment" required>
+                                        <option value="">Selecione</option>
+                                        <option value="ALIMENTOS">Alimentos</option>
+                                        <option value="BEBIDAS">Bebidas</option>
+                                        <option value="LIMPEZA">Limpeza</option>
+                                        <option value="HIGIENE">Higiene</option>
+                                        <option value="ELETRONICOS">Eletrônicos</option>
+                                        <option value="VESTUARIO">Vestuário</option>
+                                        <option value="OUTROS">Outros</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="productShelf" class="form-label">Prateleira</label>
+                                    <input type="number" class="form-control" id="productShelf">
+                                </div>
+                            </div>
+
+                            <!-- Linha 6: Categoria e Estoque -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="productStock" class="form-label">Estoque</label>
+                                    <input type="number" class="form-control" id="productStock" required>
+                                </div>
+                            </div>
+
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="button" class="btn btn-secondary me-md-2"
+                                    onclick="window.history.back()">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_BASE_URL = 'http://localhost:8080';
+        let authToken = localStorage.getItem('authToken');
+        let productId = parseInt(new URLSearchParams(window.location.search).get('id'));
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!authToken) {
+                redirectToLogin('Você precisa fazer login para acessar esta página');
+                return;
+            }
+
+            setupLogoutButton();
+            await loadUserInfo();
+            setupNavigation();
+
+            if (isNaN(productId)) {
+                alert('ID do produto inválido ou não especificado');
+                window.location.href = 'displayCustomer.html';
+                return;
+            }
+
+            await loadProductData(productId);
+        });
+
+        function redirectToLogin(message) {
+            alert(message);
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+
+        async function authFetch(url, options = {}) {
+            options.headers = options.headers || {};
+            options.headers['Authorization'] = `Bearer ${authToken}`;
+
+            try {
+                const response = await fetch(url, options);
+                if (response.status === 401) {
+                    redirectToLogin('Sessão expirada. Faça login novamente.');
+                    return null;
+                }
+                return response;
+            } catch (error) {
+                console.error('Erro na requisição:', error);
+                alert('Erro de conexão com o servidor');
+                return null;
+            }
+        }
+
+        function setupLogoutButton() {
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    localStorage.clear();
+                    window.location.href = 'login.html';
+                });
+            }
+        }
+
+        async function loadUserInfo() {
+            try {
+                const userData = localStorage.getItem('userData');
+                const userType = localStorage.getItem('userType');
+
+                if (userData && userType) {
+                    updateUserInfo({ ...JSON.parse(userData), userType });
+                } else {
+                    const response = await authFetch(`${API_BASE_URL}/users/me`);
+                    if (!response || !response.ok) return;
+
+                    const userInfo = await response.json();
+                    const userTypeDetected = userInfo.cargo ? 'FUNCIONARIO' : 'CLIENTE';
+
+                    localStorage.setItem('userData', JSON.stringify(userInfo));
+                    localStorage.setItem('userType', userTypeDetected);
+                    updateUserInfo({ ...userInfo, userType: userTypeDetected });
+                }
+            } catch (error) {
+                console.error('Erro ao carregar informações do usuário:', error);
+            }
+        }
+
+        function updateUserInfo(user) {
+            const userNameElement = document.getElementById('userName');
+            const userRoleElement = document.getElementById('userRole');
+            const userEmailElement = document.getElementById('userEmail');
+
+            if (userNameElement) userNameElement.textContent = user.nome || 'Usuário';
+            if (userRoleElement) userRoleElement.textContent = user.userType === 'FUNCIONARIO' ? (user.cargo || 'Funcionário') : 'Cliente';
+            if (userEmailElement) userEmailElement.textContent = user.email || '';
+        }
+
+        function setupNavigation() {
+            const navigationLinks = {
+                homeLink: () => window.location.href = 'displayCustomer.html',
+                productsLink: () => window.location.href = 'produtoEdit.html',
+                clientsLink: () => window.location.href = 'clientEdit.html',
+                employeesLink: () => window.location.href = 'funcionarioEdit.html'
+            };
+
+            Object.entries(navigationLinks).forEach(([id, handler]) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        handler();
+                    });
+                }
+            });
+
+            const userType = localStorage.getItem('userType');
+            const employeesLink = document.getElementById('employeesLink');
+            if (employeesLink) {
+                employeesLink.style.display = userType === 'FUNCIONARIO' ? 'block' : 'none';
+            }
+        }
+
+        async function loadProductData(id) {
+            try {
+                const response = await authFetch(`${API_BASE_URL}/produto/buscar/${id}`);
+                if (!response || !response.ok) throw new Error('Produto não encontrado');
+
+                const product = await response.json();
+                fillProductForm(product);
+                setupProductForm();
+            } catch (error) {
+                console.error('Erro ao carregar produto:', error);
+                alert(error.message || 'Erro ao carregar dados do produto');
+                window.location.href = 'products.html';
+            }
+        }
+
+        function fillProductForm(product) {
+            document.getElementById('productId').value = product.id;
+            document.getElementById('productCode').value = product.codigo || '';
+            document.getElementById('productDescription').value = product.descricao || '';
+            document.getElementById('productBrand').value = product.marca || '';
+            document.getElementById('productVolume').value = product.volume || '';
+            document.getElementById('productDepartment').value = product.departamento || '';
+            document.getElementById('productShelf').value = product.prateleira || '';
+
+            if (product.validade) {
+                const expiryDate = new Date(product.validade);
+                document.getElementById('productExpiry').value = expiryDate.toISOString().split('T')[0];
+            }
+
+            document.getElementById('productQuantity').value = product.quantidade || 0;
+            document.getElementById('productStock').value = product.estoque || 0;
+            document.getElementById('productCostPrice').value = product.precoCusto?.toFixed(2) || '0.00';
+            document.getElementById('productSalePrice').value = product.precoVenda?.toFixed(2) || '0.00';
+        }
+
+        function setupProductForm() {
+    const form = document.getElementById('editProductForm');
+    if (!form) {
+        console.error('Formulário não encontrado');
+        return;
+    }
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Coleta todos os valores do formulário
+        const id = parseInt(document.getElementById('productId').value);
+        const codigo = document.getElementById('productCode').value.trim();
+        const descricao = document.getElementById('productDescription').value.trim();
+        const marca = document.getElementById('productBrand').value.trim();
+        const volume = document.getElementById('productVolume').value.trim();
+        const departamento = document.getElementById('productDepartment').value;
+        const prateleira = document.getElementById('productShelf').value;
+        const validade = document.getElementById('productExpiry').value;
+        const quantidade = parseInt(document.getElementById('productQuantity').value) || 0;
+        const estoque = parseInt(document.getElementById('productStock').value) || 0;
+        const precoCusto = parseFloat(document.getElementById('productCostPrice').value) || 0;
+        const precoVenda = parseFloat(document.getElementById('productSalePrice').value) || 0;
+
+        // Validações básicas
+        if (!codigo) {
+            alert('O campo Código é obrigatório!');
+            document.getElementById('productCode').focus();
+            return;
+        }
+
+        if (!descricao) {
+            alert('O campo Descrição é obrigatório!');
+            document.getElementById('productDescription').focus();
+            return;
+        }
+
+        if (isNaN(id) || id <= 0) {
+            alert('ID do produto inválido!');
+            return;
+        }
+
+        // Prepara o objeto de dados
+        const productData = {
+            id: id,
+            codigo: codigo,
+            descricao: descricao,
+            marca: marca || null,
+            volume: volume || null,
+            departamento: departamento || null,
+            prateleira: prateleira ? parseInt(prateleira) : null,
+            validade: validade || null,
+            quantidade: quantidade,
+            estoque: estoque,
+            precoCusto: precoCusto,
+            precoVenda: precoVenda
+        };
+
+        // Validação de preços
+        if (precoVenda < precoCusto) {
+            if (!confirm('O preço de venda está menor que o preço de custo. Deseja continuar?')) {
+                return;
+            }
+        }
+
+        // Exibe loading
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Salvando...';
+        submitBtn.disabled = true;
+
+        try {
+            // Envia para a API
+            const response = await authFetch(`${API_BASE_URL}/produto/atualizarViaId/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`
+                },
+                body: JSON.stringify(productData)
+            });
+
+            if (!response) {
+                throw new Error('Sem resposta do servidor');
+            }
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || `Erro ${response.status}: ${response.statusText}`);
+            }
+
+            // Sucesso
+            alert('Produto atualizado com sucesso!');
+            window.location.href = 'displayCustomer.html';
+
+        } catch (error) {
+            console.error('Erro na atualização:', error);
+            
+            // Mensagens de erro mais amigáveis
+            let errorMessage = 'Erro ao atualizar produto';
+            if (error.message.includes('401')) {
+                errorMessage = 'Sessão expirada. Faça login novamente.';
+                redirectToLogin(errorMessage);
+                return;
+            } else if (error.message.includes('404')) {
+                errorMessage = 'Produto não encontrado';
+            } else if (error.message.includes('500')) {
+                errorMessage = 'Erro interno no servidor';
+            } else {
+                errorMessage = error.message || errorMessage;
+            }
+
+            alert(errorMessage);
+        } finally {
+            // Restaura o botão
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
+        }
+    });
+}
+    </script>
+
+</body>
+
+</html>

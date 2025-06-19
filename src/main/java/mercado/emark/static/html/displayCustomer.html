@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>displayCustomer.html</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/src/main/java/mercado/emark/static/css/displayCustomer.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 d-md-block sidebar bg-dark">
+                <div class="logo-area">
+                    <img src="https://via.placeholder.com/80" alt="Foto do usuário" id="userPhoto">
+                    <h5 id="userName">Carregando...</h5>
+                    <p class="user-role" id="userRole">Carregando...</p>
+                    <p class="user-info" id="userEmail">Carregando...</p>
+                    <button id="logoutBtn" class="btn btn-sm btn-danger mt-2">
+                        <i class="bi bi-box-arrow-right"></i> Sair
+                    </button>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" id="homeLink">
+                            <i class="bi bi-house-door me-2"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="productsLink">
+                            <i class="bi bi-box-seam me-2"></i> Produtos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="clientsLink">
+                            <i class="bi bi-people me-2"></i> Clientes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="employeesLink">
+                            <i class="bi bi-person-badge me-2"></i> Funcionários
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-cash-stack me-2"></i> Vendas
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4" id="mainContent">
+                <!-- Conteúdo será carregado dinamicamente aqui -->
+                <div id="homeContent">
+                    <div
+                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Bem-vindo ao Sistema</h1>
+                    </div>
+                    <div class="alert alert-info">
+                        Selecione uma opção no menu lateral para começar.
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Templates para os diferentes conteúdos -->
+    <template id="productsTemplate">
+        <div
+            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Gerenciamento de Produtos</h1>
+        </div>
+
+        <div class="accordion mb-4" id="productsAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseAddProduct">
+                        Adicionar Produto
+                    </button>
+                </h2>
+                <div id="collapseAddProduct" class="accordion-collapse collapse show"
+                    data-bs-parent="#productsAccordion">
+                    <div class="accordion-body">
+                        <form id="addProductForm">
+                            <!-- Linha 1: Código e Descrição -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="productCode" class="form-label">Código</label>
+                                    <input type="text" class="form-control" id="productCode" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="productDescription" class="form-label">Descrição</label>
+                                    <input type="text" class="form-control" id="productDescription" required>
+                                </div>
+                            </div>
+
+                            <!-- Linha 2: Validade e Volume -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="productExpiry" class="form-label">Validade</label>
+                                    <input type="date" class="form-control" id="productExpiry">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="productVolume" class="form-label">Volume</label>
+                                    <input type="number" class="form-control" id="productVolume" required>
+                                </div>
+                            </div>
+
+                            <!-- Linha 3: Quantidade e Marca -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="productQuantity" class="form-label">Quantidade</label>
+                                    <input type="number" class="form-control" id="productQuantity" required value="0">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="productBrand" class="form-label">Marca</label>
+                                    <input type="text" class="form-control" id="productBrand">
+                                </div>
+                            </div>
+
+                            <!-- Linha 4: Preço de Custo e Preço de Venda -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="productCostPrice" class="form-label">Preço de Custo</label>
+                                    <input type="number" step="0.01" class="form-control" id="productCostPrice"
+                                        required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="productSalePrice" class="form-label">Preço de Venda</label>
+                                    <input type="number" step="0.01" class="form-control" id="productSalePrice"
+                                        required>
+                                </div>
+                            </div>
+
+                            <!-- Linha 5: Departamento e Prateleira -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="productDepartment" class="form-label">Departamento</label>
+                                    <select class="form-select" id="productDepartment" required>
+                                        <option value="">Selecione</option>
+                                        <option value="ALIMENTOS">Alimentos</option>
+                                        <option value="BEBIDAS">Bebidas</option>
+                                        <option value="LIMPEZA">Limpeza</option>
+                                        <option value="HIGIENE">Higiene</option>
+                                        <option value="ELETRONICOS">Eletrônicos</option>
+                                        <option value="VESTUARIO">Vestuário</option>
+                                        <option value="OUTROS">Outros</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="productShelf" class="form-label">Prateleira</label>
+                                    <input type="number" class="form-control" id="productShelf">
+                                </div>
+                            </div>
+
+                            <!-- Linha 6: Categoria e Estoque -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="productStock" class="form-label">Estoque</label>
+                                    <input type="number" class="form-control" id="productStock" required>
+                                </div>
+                            </div>
+
+
+                            <!-- Botão de Submit -->
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary w-100">Salvar Produto</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseShowProducts">
+                            Mostrar Produtos
+                        </button>
+                    </h2>
+                    <div id="collapseShowProducts" class="accordion-collapse collapse"
+                        data-bs-parent="#productsAccordion">
+                        <div class="accordion-body">
+                            <div class="table-container">
+                                <div class="table-responsive">
+                                    <table class="table table-hover" id="productsTable">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Código</th>
+                                                <th>Descrição</th>
+                                                <th>marca</th>
+                                                <th>Preço De Custo</th>
+                                                <th>Preço De Venda</th>
+                                                <th>Validade</th>
+                                                <th>Estoque</th>
+                                                <th>Volume</th>
+                                                <th>Quantidade</th>
+                                                <th>Departamento</th>
+                                                <th>Prateleira</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Dados serão inseridos aqui via JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </template>
+
+    <template id="clientsTemplate">
+        <div
+            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Gerenciamento de Clientes</h1>
+        </div>
+
+        <div class="accordion mb-4" id="clientsAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseAddClient">
+                        Cadastrar Cliente
+                    </button>
+                </h2>
+                <div id="collapseAddClient" class="accordion-collapse collapse show" data-bs-parent="#clientsAccordion">
+                    <div class="accordion-body">
+                        <form id="addClientForm">
+                            <!-- Linha 1: Nome e Sobrenome -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="clientName" class="form-label">Nome</label>
+                                    <input type="text" class="form-control" id="clientName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="clientLastName" class="form-label">Sobrenome</label>
+                                    <input type="text" class="form-control" id="clientLastName" required>
+                                </div>
+                            </div>
+
+                            <!-- Linha 2: CPF e Sexo -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="clientCpf" class="form-label">CPF</label>
+                                    <input type="text" class="form-control" id="clientCpf" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="clientGender" class="form-label">Sexo</label>
+                                    <select class="form-select" id="clientGender" required>
+                                        <option value="">Selecione</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Feminino">Feminino</option>
+                                        <option value="Outro">Outro</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Linha 3: Data Nascimento e Email -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="clientBirthDate" class="form-label">Data de Nascimento</label>
+                                    <input type="date" class="form-control" id="clientBirthDate" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="clientEmail" class="form-label">E-mail</label>
+                                    <input type="email" class="form-control" id="clientEmail" required>
+                                </div>
+                            </div>
+
+                            <!-- Linha 4: Senha e Telefone -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="clientPassword" class="form-label">Senha</label>
+                                    <input type="password" class="form-control" id="clientPassword" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="telefone" class="form-label">Telefone</label>
+                                    <input type="text" class="form-control" id="telefone" placeholder="(XX) XXXX-XXXX"
+                                        required>
+                                </div>
+                            </div>
+
+                            <!-- Linha 5: Celular e Número -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="celular" class="form-label">Celular</label>
+                                    <input type="text" class="form-control" id="celular" placeholder="(XX) XXXXX-XXXX"
+                                        required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="clientNumber" class="form-label">Número</label>
+                                    <input type="text" class="form-control" id="clientNumber" required>
+                                </div>
+                            </div>
+
+                            <!-- Linha 6: Complemento e CEP -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="clientComplement" class="form-label">Complemento</label>
+                                    <input type="text" class="form-control" id="clientComplement">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="clientZipCode" class="form-label">CEP</label>
+                                    <input type="text" class="form-control" id="clientZipCode" required>
+                                </div>
+                            </div>
+
+                            <!-- Linha 7: Administrador -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="administrador" class="form-label">Administrador</label>
+                                    <select class="form-select" id="administrador" name="administrador" required>
+                                        <option value="false">Não</option>
+                                        <option value="true">Sim</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary w-100">Cadastrar Cliente</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseShowClients">
+                        Mostrar Clientes
+                    </button>
+                </h2>
+                <div id="collapseShowClients" class="accordion-collapse collapse" data-bs-parent="#clientsAccordion">
+                    <div class="accordion-body">
+                        <div class="table-container">
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="clientsTable">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nome</th>
+                                            <th>Sobrenome</th>
+                                            <th>CPF</th>
+                                            <th>Sexo</th>
+                                            <th>E-mail</th>
+                                            <th>Telefone</th>
+                                            <th>Celular</th>
+                                            <th>Cidade</th>
+                                            <th>Numero Da Casa</th>
+                                            <th>Complemento</th>
+                                            <th>Bairro</th>
+                                            <th>Cep</th>
+                                            <th>Estado</th>
+                                            <th>Data De Nascimento</th>
+                                            <th>Data Registro</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Dados serão inseridos aqui via JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="employeesTemplate">
+        <div
+            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Gerenciamento de Funcionários</h1>
+        </div>
+
+        <div class="accordion mb-4" id="employeesAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseAddEmployee">
+                        Cadastrar Funcionário
+                    </button>
+                </h2>
+                <div id="collapseAddEmployee" class="accordion-collapse collapse show"
+                    data-bs-parent="#employeesAccordion">
+                    <div class="accordion-body">
+                        <form id="employeeForm">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="nome" class="form-label">Nome</label>
+                                    <input type="text" class="form-control" id="nome" name="nome" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="sobrenome" class="form-label">Sobrenome</label>
+                                    <input type="text" class="form-control" id="sobrenome" name="sobrenome" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="cpf" class="form-label">CPF</label>
+                                    <input type="text" class="form-control" id="cpf" name="cpf" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="sexo" class="form-label">Sexo</label>
+                                    <select class="form-select" id="sexo" name="sexo" required>
+                                        <option value="">Selecione</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Feminino">Feminino</option>
+                                        <option value="Outro">Outro</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="rg" class="form-label">RG</label>
+                                    <input type="text" class="form-control" id="rg" name="rg" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="dataNascimento" class="form-label">Data de Nascimento</label>
+                                    <input type="date" class="form-control" id="dataNascimento" name="dataNascimento"
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="cargo" class="form-label">Cargo</label>
+                                    <select class="form-select" id="cargo" name="cargo" required>
+                                        <option value="">Selecione um cargo</option>
+                                        <option value="CLIENTE">CLIENTE</option>
+                                        <option value="OPERADOR">OPERADOR</option>
+                                        <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+                                        <option value="GERENTE">GERENTE</option>
+                                        <option value="SUPORTE">SUPORTE</option>
+                                        <option value="ATENDENTE">ATENDENTE</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="setor" class="form-label">Setor</label>
+                                    <select class="form-select" id="setor" name="setor" required>
+                                        <option value="">Selecione um setor</option>
+                                        <option value="CAIXA">Caixa</option>
+                                        <option value="REPOSICAO">Reposição de Estoque</option>
+                                        <option value="GERENCIA">Gerência</option>
+                                        <option value="ATENDIMENTO">Atendimento ao Cliente</option>
+                                        <option value="FISCAL">Fiscal de Loja</option>
+                                        <option value="LIMPEZA">Limpeza e Zeladoria</option>
+                                        <option value="PERECIVEIS">Setor de Perecíveis</option>
+                                        <option value="FRIOS">Setor de Frios e Laticínios</option>
+                                        <option value="ACOUGUE">Açougue</option>
+                                        <option value="PADARIA">Padaria e Confeitaria</option>
+                                        <option value="HORTIFRUTI">Hortifruti</option>
+                                        <option value="BEBIDAS">Bebidas</option>
+                                        <option value="MERCEARIA">Mercearia</option>
+                                        <option value="RH">Recursos Humanos</option>
+                                        <option value="TI">Tecnologia da Informação</option>
+                                        <option value="MARKETING">Marketing</option>
+                                        <option value="SEGURANCA">Segurança</option>
+                                        <option value="RECEBIMENTO">Recebimento de Mercadorias</option>
+                                        <option value="ENTREGAS">Entregas e Logística</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">E-mail</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="password" class="form-label">Senha</label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="telefone" class="form-label">Telefone</label>
+                                    <input type="text" class="form-control" id="telefone" name="telefone" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="celular" class="form-label">Celular</label>
+                                    <input type="text" class="form-control" id="celular" name="celular" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="cep" class="form-label">CEP</label>
+                                    <input type="text" class="form-control" id="cep" name="cep" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="administrador" class="form-label">Administrador</label>
+                                    <select class="form-select" id="administrador" name="administrador" required>
+                                        <option value="false">Não</option>
+                                        <option value="true">Sim</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="numero" class="form-label">Numero</label>
+                                    <input type="text" class="form-control" id="numero" name="numero" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="complemento" class="form-label">Complemento</label>
+                                    <input type="text" class="form-control" id="complemento" name="complemento"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <button type="submit" class="btn btn-primary">Salvar Funcionário</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseShowEmployees">
+                        Mostrar Funcionários
+                    </button>
+                </h2>
+                <div id="collapseShowEmployees" class="accordion-collapse collapse"
+                    data-bs-parent="#employeesAccordion">
+                    <div class="accordion-body">
+                        <div class="table-container">
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="employeesTable">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nome</th>
+                                            <th>Sobrenome</th>
+                                            <th>CPF</th>
+                                            <th>RG</th>
+                                            <th>Cargo</th>
+                                            <th>Setor</th>
+                                            <th>Sexo</th>
+                                            <th>E-mail</th>
+                                            <th>Telefone</th>
+                                            <th>Celular</th>
+                                            <th>Logradouro</th>
+                                            <th>Numero Da Casa</th>
+                                            <th>Complemento</th>
+                                            <th>Bairro</th>
+                                            <th>CEP</th>
+                                            <th>Cidade</th>
+                                            <th>Estado</th>
+                                            <th>Administrador</th>
+                                            <th>Data De Nascimento</th>
+                                            <th>Data De Cadastro</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Dados serão inseridos aqui via JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script principal -->
+    <script>
+        const API_BASE_URL = 'http://localhost:8080';
+        let loggedInUser = null;
+        let authToken = localStorage.getItem('authToken');
+
+        // Funções principais
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!authToken) {
+                redirectToLogin('Você precisa fazer login para acessar esta página');
+                return;
+            }
+
+
+
+            setupLogoutButton();
+            await loadUserInfo();
+            setupNavigation();
+            loadHomeContent();
+        });
+
+        // Funções auxiliares
+        function redirectToLogin(message) {
+            alert(message);
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+
+        async function authFetch(url, options = {}) {
+            options.headers = options.headers || {};
+            options.headers['Authorization'] = `Bearer ${authToken}`;
+
+            try {
+                const response = await fetch(url, options);
+
+                if (response.status === 401) {
+                    redirectToLogin('Sessão expirada. Faça login novamente.');
+                    return null;
+                }
+
+                return response;
+            } catch (error) {
+                console.error('Erro na requisição:', error);
+                alert('Erro de conexão com o servidor');
+                return null;
+            }
+        }
+
+        function setupLogoutButton() {
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    localStorage.clear();
+                    window.location.href = 'login.html';
+                });
+            }
+        }
+
+        async function loadUserInfo() {
+            try {
+                const userData = localStorage.getItem('userData');
+                const userType = localStorage.getItem('userType');
+
+                if (userData && userType) {
+                    loggedInUser = { ...JSON.parse(userData), userType };
+                    updateUserInfo(loggedInUser);
+                } else {
+                    const response = await authFetch(`${API_BASE_URL}/users/me`);
+                    if (!response) return;
+
+                    const userInfo = await response.json();
+                    const userTypeDetected = userInfo.cargo ? 'FUNCIONARIO' : 'CLIENTE';
+
+                    loggedInUser = { ...userInfo, userType: userTypeDetected };
+                    updateUserInfo(loggedInUser);
+
+                    localStorage.setItem('userData', JSON.stringify(userInfo));
+                    localStorage.setItem('userType', userTypeDetected);
+                }
+            } catch (error) {
+                console.error('Erro ao carregar informações do usuário:', error);
+            }
+        }
+
+        function updateUserInfo(user) {
+            const userNameElement = document.getElementById('userName');
+            const userRoleElement = document.getElementById('userRole');
+            const userEmailElement = document.getElementById('userEmail');
+
+            if (userNameElement) userNameElement.textContent = user.nome || 'Usuário';
+            if (userRoleElement) userRoleElement.textContent = user.userType === 'FUNCIONARIO' ? (user.cargo || 'Funcionário') : 'Cliente';
+            if (userEmailElement) userEmailElement.textContent = user.email || '';
+        }
+
+        function setupNavigation() {
+            const navigationLinks = {
+                homeLink: loadHomeContent,
+                productsLink: () => loadContent('products'),
+                clientsLink: () => loadContent('clients'),
+                employeesLink: () => {
+                    if (loggedInUser?.userType === 'FUNCIONARIO') {
+                        loadContent('employees');
+                    } else {
+                        alert('Apenas funcionários podem acessar esta área.');
+                    }
+                }
+            };
+
+            Object.entries(navigationLinks).forEach(([id, handler]) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        handler();
+                    });
+                }
+            });
+
+            const employeesLink = document.getElementById('employeesLink');
+            if (employeesLink) {
+                employeesLink.style.display = loggedInUser?.userType === 'FUNCIONARIO' ? 'block' : 'none';
+            }
+        }
+
+        function loadHomeContent() {
+            const mainContent = document.getElementById('mainContent');
+            if (!mainContent) return;
+
+            mainContent.innerHTML = `
+        <div class="welcome-section">
+            <h1>Bem-vindo, ${loggedInUser?.nome || 'Usuário'}!</h1>
+            <div class="alert alert-info">Selecione uma opção no menu para começar.</div>
+            ${loggedInUser?.userType === 'FUNCIONARIO' ? '<div class="stats-container"></div>' : ''}
+        </div>
+    `;
+            updateActiveLink('home');
+        }
+
+        function updateActiveLink(section) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.id === `${section}Link`) link.classList.add('active');
+            });
+        }
+
+        // Gerenciamento de conteúdo
+        function loadContent(section) {
+            const templates = {
+                products: document.getElementById('productsTemplate'),
+                clients: document.getElementById('clientsTemplate'),
+                employees: document.getElementById('employeesTemplate')
+            };
+
+            const mainContent = document.getElementById('mainContent');
+            const template = templates[section];
+
+            if (!mainContent || !template) return;
+
+            mainContent.innerHTML = '';
+            mainContent.appendChild(document.importNode(template.content, true));
+
+            updateActiveLink(section);
+
+            // Primeiro configuramos os formulários e depois buscamos os dados
+            switch (section) {
+                case 'products':
+                    setupProductForm();
+                    fetchProducts();
+                    break;
+                case 'clients':
+                    setupClientForm();
+                    fetchClients();
+                    break;
+                case 'employees':
+                    setupEmployeeForm();
+                    fetchEmployees();
+                    break;
+            }
+        }
+
+        // Operações CRUD
+        async function fetchClients() {
+            try {
+                const response = await authFetch(`${API_BASE_URL}/users/clientes`);
+                if (!response) return;
+
+                const data = await response.json();
+                renderTable('#clientsTable', data, renderClientRow);
+            } catch (error) {
+                console.error('Erro ao buscar clientes:', error);
+                alert('Erro ao carregar lista de clientes');
+            }
+        }
+
+        async function fetchProducts() {
+            try {
+                const response = await authFetch(`${API_BASE_URL}/produto/listar`);
+                if (!response) return;
+
+                const data = await response.json();
+                renderTable('#productsTable', data, renderProductRow);
+            } catch (error) {
+                console.error('Erro ao buscar produtos:', error);
+                alert('Erro ao carregar lista de produtos');
+            }
+        }
+
+        async function fetchEmployees() {
+            try {
+                const response = await authFetch(`${API_BASE_URL}/users/funcionarios`);
+                if (!response) return;
+
+                const data = await response.json();
+                renderTable('#employeesTable', data, renderEmployeeRow);
+            } catch (error) {
+                console.error('Erro ao buscar funcionários:', error);
+                alert('Erro ao carregar lista de funcionários');
+            }
+        }
+
+        function renderTable(selector, data, rowRenderer) {
+            const tbody = document.querySelector(`${selector} tbody`);
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = rowRenderer(item);
+                tbody.appendChild(row);
+            });
+        }
+
+        function editItem(type, id) {
+            if (type === 'cliente') {
+                window.location.href = `clientEdit.html?id=${id}`;
+            } else if (type === 'funcionario') {
+                window.location.href = `funcionarioEdit.html?id=${id}`;
+            } else if (type === 'produto') {
+                window.location.href = `produtoEdit.html?id=${id}`;
+            } else {
+                console.warn('Tipo não suportado:', type);
+            }
+        }
+        // Renderização de linhas
+        function renderClientRow(client) {
+            return `
+        <td>${client.id}</td>
+        <td>${client.nome}</td>
+        <td>${client.sobrenome || ''}</td>
+        <td>${client.cpf || ''}</td>
+        <td>${client.sexo}</td>
+        <td>${client.email}</td>
+        <td>${client.telefone || ''}</td>
+        <td>${client.celular || ''}</td>
+        <td>${client.endereco?.localidade || ''}</td>
+        <td>${client.endereco?.numero || ''}</td>
+        <td>${client.endereco?.complemento || ''}</td>
+        <td>${client.endereco?.bairro || ''}</td>
+        <td>${client.endereco?.cep || ''}</td>
+        <td>${client.endereco?.uf || ''}</td>
+        <td>${client.dataNascimento || ''}</td>
+        <td>${client.dataRegistro}</td>
+        <td>
+            <button class="btn btn-sm btn-danger" onclick="deleteItem('cliente', ${client.id})">Excluir</button>
+            <button class="btn btn-sm btn-primary" onclick="editItem('cliente', ${client.id})">Editar</button>
+        </td>
+    `;
+        }
+
+        function renderProductRow(product) {
+            return `
+            <td>${product.codigo}</td>
+        <td>${product.descricao}</td>
+        <td>${product.marca}</td>
+        <td>${product.precoCusto}</td>
+        <td>${product.precoVenda}</td>
+        <td>${product.validade}</td>
+        <td>${product.estoque}</td>
+        <td>${product.volume}</td>
+        <td>${product.quantidade}</td>
+        <td>${product.departamento}</td>
+        <td>${product.prateleira}</td>
+        
+           <td> <button class="btn btn-sm btn-danger" onclick="deleteItem('produto', ${product.id})">Excluir</button></td>
+           <td> <button class="btn btn-sm btn-primary" onclick="editItem('produto', ${product.id})">Editar</button></td>
+       
+    `;
+        }
+
+        function renderEmployeeRow(employee) {
+            return `
+        <td>${employee.id}</td>
+        <td>${employee.nome}</td>
+        <td>${employee.sobrenome}</td>
+        <td>${employee.cpf}</td>
+        <td>${employee.rg}</td>
+        <td>${employee.cargo}</td>
+        <td>${employee.setor}</td>
+        <td>${employee.sexo}</td>
+        <td>${employee.email}</td>
+        <td>${employee.telefone}</td>
+        <td>${employee.celular}</td>
+        <td>${employee.endereco?.logradouro || ''}</td>
+        <td>${employee.endereco?.numero || ''}</td>
+        <td>${employee.endereco?.complemento || ''}</td>
+        <td>${employee.endereco?.bairro || ''}</td>
+        <td>${employee.endereco?.cep || ''}</td>
+        <td>${employee.endereco?.localidade || ''}</td>
+        <td>${employee.endereco?.uf || ''}</td>
+        <td>${employee.administrador ? 'Sim' : 'Não'}</td>
+        <td>${employee.dataNascimento || ''}</td>    
+        <td>${employee.dataRegistro}</td>
+        <td>
+            <button class="btn btn-sm btn-danger" onclick="deleteItem('funcionario', ${employee.id})">Excluir</button>
+            <button class="btn btn-sm btn-primary" onclick="editItem('funcionario', ${employee.id})">Editar</button>
+        </td>
+    `;
+        }
+
+
+
+
+        // Funções de formulário
+        function setupClientForm() {
+            const form = document.getElementById('addClientForm');
+            if (!form) {
+                console.log('Formulário de cliente não encontrado');
+                return;
+            }
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const formData = {
+                    id: form.querySelector('#clienteId') ? form.querySelector('#clienteId').value : null,
+                    nome: document.getElementById('clientName').value,
+                    sobrenome: document.getElementById('clientLastName').value,
+                    cpf: document.getElementById('clientCpf').value,
+                    sexo: document.getElementById('clientGender').value,
+                    dataNascimento: document.getElementById('clientBirthDate').value,
+                    email: document.getElementById('clientEmail').value,
+                    password: document.getElementById('clientPassword').value,
+                    telefone: document.getElementById('telefone').value,
+                    celular: document.getElementById('celular').value,
+                    numero: document.getElementById('clientNumber').value,
+                    complemento: document.getElementById('clientComplement').value,
+                    cep: document.getElementById('clientZipCode').value,
+                    administrador: document.getElementById('administrador').value === 'true'
+                };
+
+                const isEdit = formData.id !== null && formData.id !== '';
+
+                try {
+                    const url = isEdit ? `${API_BASE_URL}/cliente/atualizar` : `${API_BASE_URL}/auth/registrar-cliente`;
+                    const method = isEdit ? 'PUT' : 'POST';
+
+                    const response = await authFetch(url, {
+                        method,
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || 'Erro ao salvar cliente');
+                    }
+
+                    alert(isEdit ? 'Cliente atualizado com sucesso!' : 'Cliente cadastrado com sucesso!');
+                    form.reset();
+
+                    // Remove campo hidden "id" se existir
+                    const idField = form.querySelector('#clienteId');
+                    if (idField) idField.remove();
+
+                    // Restaura texto do botão
+                    const submitButton = form.querySelector('button[type="submit"]');
+                    if (submitButton) submitButton.textContent = 'Cadastrar Cliente';
+
+                    fetchClients();
+                } catch (error) {
+                    console.error('Erro ao salvar cliente:', error);
+                    alert(error.message || 'Erro ao salvar cliente');
+                }
+            });
+        }
+
+
+        function setupEmployeeForm() {
+            const form = document.getElementById('employeeForm');
+            if (!form) {
+                console.log('Formulário de funcionário não encontrado');
+                return;
+            }
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const formData = Object.fromEntries(new FormData(form));
+                formData.administrador = formData.administrador === 'true';
+                formData.id = form.querySelector('#funcionarioId') ? form.querySelector('#funcionarioId').value : null;
+
+                const isEdit = formData.id !== null && formData.id !== '';
+
+                try {
+                    const url = isEdit ? `${API_BASE_URL}/funcionario/atualizar` : `${API_BASE_URL}/auth/registrar-funcionario`;
+                    const method = isEdit ? 'PUT' : 'POST';
+
+                    const response = await authFetch(url, {
+                        method,
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || 'Erro ao salvar funcionário');
+                    }
+
+                    alert(isEdit ? 'Funcionário atualizado com sucesso!' : 'Funcionário cadastrado com sucesso!');
+                    form.reset();
+
+                    // Remove campo hidden "id" se existir
+                    const idField = form.querySelector('#funcionarioId');
+                    if (idField) idField.remove();
+
+                    // Restaura texto do botão
+                    const submitButton = form.querySelector('button[type="submit"]');
+                    if (submitButton) submitButton.textContent = 'Salvar Funcionário';
+
+                    fetchEmployees();
+                } catch (error) {
+                    console.error('Erro ao salvar funcionário:', error);
+                    alert(error.message || 'Erro ao salvar funcionário');
+                }
+            });
+        }
+
+        function setupProductForm() {
+            const form = document.getElementById('addProductForm');
+            if (!form) {
+                console.error('Formulário de produto não encontrado');
+                return;
+            }
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const productData = {
+                    codigo: document.getElementById('productCode').value,
+                    descricao: document.getElementById('productDescription').value,
+                    validade: document.getElementById('productExpiry').value,
+                    volume: document.getElementById('productVolume').value,
+                    quantidade: document.getElementById('productQuantity').value,
+                    precoCusto: document.getElementById('productCostPrice').value,
+                    precoVenda: document.getElementById('productSalePrice').value,
+                    marca: document.getElementById('productBrand').value,
+                    departamento: document.getElementById('productDepartment').value,
+                    prateleira: document.getElementById('productShelf').value,
+                    estoque: document.getElementById('productStock').value
+                };
+
+                try {
+                    const response = await authFetch(`${API_BASE_URL}/produto/cadastrar`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(productData)
+                    });
+
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.message || 'Erro ao cadastrar produto');
+                    }
+
+                    alert('Produto cadastrado com sucesso!');
+                    form.reset();
+                    fetchProducts(); // Atualiza a lista de produtos
+                } catch (error) {
+                    console.error('Erro:', error);
+                    alert(error.message || 'Erro ao cadastrar produto');
+                }
+            });
+        }
+
+
+        // Funções globais para os botões nas tabelas
+        window.deleteItem = async function (type, id) {
+            if (!confirm(`Deseja realmente excluir este ${type}?`)) return;
+
+            const endpoints = {
+                cliente: `${API_BASE_URL}/cliente/deletar/${id}`,
+                produto: `${API_BASE_URL}/produto/deletar/${id}`,
+                funcionario: `${API_BASE_URL}/funcionario/deletar/${id}`
+            };
+
+            try {
+                const response = await authFetch(endpoints[type], { method: 'DELETE' });
+                if (!response) return;
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || `Erro ao excluir ${type}`);
+                }
+
+                alert(`${type} excluído com sucesso!`);
+
+                // Atualiza a lista correspondente
+                if (type === 'cliente') fetchClients();
+                if (type === 'produto') fetchProducts();
+                if (type === 'funcionario') fetchEmployees();
+            } catch (error) {
+                console.error(`Erro ao excluir ${type}:`, error);
+                alert(error.message || `Erro ao excluir ${type}`);
+            }
+        };
+
+
+        function fillFormWithData(formId, data, type) {
+            const form = document.getElementById(formId);
+            if (!form) {
+                console.error('Formulário não encontrado:', formId);
+                return;
+            }
+
+            // Preenche os campos simples
+            for (const key in data) {
+                if (data.hasOwnProperty(key)) {
+                    // Mapeia o nome dos campos do form
+                    let inputId = '';
+
+                    if (type === 'cliente') {
+                        inputId = 'client' + capitalizeFirstLetter(key);
+                    } else if (type === 'funcionario') {
+                        inputId = key;
+                    }
+
+                    const input = form.querySelector(`#${inputId}`);
+                    if (input) {
+                        if (input.type === 'checkbox') {
+                            input.checked = data[key];
+                        } else if (input.tagName === 'SELECT') {
+                            input.value = data[key] || '';
+                        } else if (input.type === 'date' && data[key]) {
+                            input.value = data[key].substring(0, 10); // YYYY-MM-DD
+                        } else {
+                            input.value = data[key] || '';
+                        }
+                    }
+
+                    // Se tiver objeto aninhado (ex.: endereco)
+                    if (typeof data[key] === 'object' && data[key] !== null) {
+                        for (const subKey in data[key]) {
+                            const subInputId = type === 'cliente'
+                                ? 'client' + capitalizeFirstLetter(subKey)
+                                : subKey;
+
+                            const subInput = form.querySelector(`#${subInputId}`);
+                            if (subInput) {
+                                subInput.value = data[key][subKey] || '';
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Adiciona um campo hidden "id" para indicar que é edição
+            let idField = form.querySelector(`[name="id"], #${type}Id`);
+            if (!idField) {
+                const hiddenId = document.createElement('input');
+                hiddenId.type = 'hidden';
+                hiddenId.name = 'id';
+                hiddenId.id = `${type}Id`;
+                hiddenId.value = data.id;
+                form.appendChild(hiddenId);
+            } else {
+                idField.value = data.id;
+            }
+
+            // Atualiza o texto do botão para "Salvar Alterações"
+            const submitButton = form.querySelector('button[type="submit"]');
+            if (submitButton) {
+                submitButton.textContent = 'Salvar Alterações';
+            }
+        }
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+
+    </script>
+
+</body>
+
+</html>
